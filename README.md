@@ -302,6 +302,13 @@ flutter-release-kit/
 
 ---
 
+## More in this repository
+
+- [Flutter Release Check for ChatGPT](https://github.com/ChandraChaan/flutter-release-kit/tree/main/apps/chatgpt-flutter-release): a self-hosted MCP server that brings these permission and listing rules into ChatGPT.
+- [Bills and Renewals](https://github.com/ChandraChaan/flutter-release-kit/tree/main/plugins/bills-and-renewals): a Claude Code plugin that privately tracks bills, subscriptions and document expiry dates.
+
+---
+
 ## Roadmap
 
 - Fastlane metadata read/write for `store-listing`
