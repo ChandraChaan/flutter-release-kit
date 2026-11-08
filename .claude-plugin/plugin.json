@@ -11,5 +11,17 @@
   "homepage": "https://github.com/ChandraChaan/flutter-release-kit",
   "repository": "https://github.com/ChandraChaan/flutter-release-kit",
   "license": "MIT",
-  "keywords": ["flutter", "dart", "release", "play-store", "app-store", "android", "ios", "permissions", "changelog", "mobile"]
+  "keywords": [
+    "flutter",
+    "dart",
+    "release",
+    "play-store",
+    "app-store",
+    "android",
+    "ios",
+    "permissions",
+    "changelog",
+    "mobile"
+  ],
+  "icon": "./.claude-plugin/icon.png"
 }
