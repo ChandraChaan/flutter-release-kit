@@ -17,7 +17,7 @@ From the Flutter project root run:
 bash "${CLAUDE_PLUGIN_ROOT}/scripts/preflight.sh" $ARGUMENTS
 ```
 
-The script prints `PASS` / `WARN` / `FAIL` lines grouped by section (Version, Changelog, Static analysis, Tests, Debug leftovers, Android, iOS) and exits 1 on any FAIL. It may take a minute when tests run. If the user is clearly in the middle of development and only wants a quick look, pass `--skip-tests`.
+The script prints `OK` / `WARN` / `FAIL` lines grouped by section (Version, Changelog, Static analysis, Tests, Debug leftovers, Android, iOS) and exits 1 on any FAIL. It may take a minute when tests run. If the user is clearly in the middle of development and only wants a quick look, pass `--skip-tests`.
 
 ## Step 2: investigate every FAIL and WARN
 
@@ -56,4 +56,4 @@ Return a short report:
 3. **Should fix** (WARN items that matter for this app).
 4. **Next commands**: usually `flutter build appbundle --release` and `flutter build ipa --release`, preceded by `bump-version` and `changelog` when the version was already shipped.
 
-Keep it tight. Do not repeat PASS lines unless the user asks for the full output.
+Keep it tight. Do not repeat OK lines unless the user asks for the full output.
