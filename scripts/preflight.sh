@@ -5,7 +5,6 @@
 # Usage: preflight.sh [--skip-tests] [--skip-analyze] [--platform android|ios|all] [project_dir]
 # Prints a PASS/WARN/FAIL report. Exit code 1 when any check FAILs.
 
-set -u
 
 SKIP_TESTS=0
 SKIP_ANALYZE=0

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Flutter Release Kit - permission audit.
-Author: Chandra ObulaReddy <https://github.com/ChandraChaan>
+Author: Chandra ObulaReddy (ChandraChaan)
 
 Reads android/app/src/main/AndroidManifest.xml, ios/Runner/Info.plist and
 pubspec.yaml, then reports:

@@ -229,12 +229,7 @@ Restart Claude Code after an update. To remove:
 /plugin marketplace remove chandrachaan-plugins
 ```
 
-Try a local checkout without installing:
-
-```bash
-git clone https://github.com/ChandraChaan/flutter-release-kit.git
-claude --plugin-dir ./flutter-release-kit
-```
+To try a local checkout without installing, start Claude Code with `claude --plugin-dir <path-to-checkout>`.
 
 ---
 
@@ -292,8 +287,7 @@ Generates a Flutter-shaped fixture with deliberate release mistakes in a temp fo
 flutter-release-kit/
 ├── .claude-plugin/
 │   ├── plugin.json         manifest
-│   ├── marketplace.json    lets /plugin marketplace add work on this repo
-│   └── icon.png
+│   └── marketplace.json    lets /plugin marketplace add work on this repo
 ├── skills/
 │   ├── release-check/      SKILL.md + references (store rejections, Android signing, privacy manifest)
 │   ├── bump-version/

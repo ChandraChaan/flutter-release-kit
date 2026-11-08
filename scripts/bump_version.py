@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Flutter Release Kit - version bumper.
-Author: Chandra ObulaReddy <https://github.com/ChandraChaan>
+Author: Chandra ObulaReddy (ChandraChaan)
 
 Usage:
   bump_version.py (major|minor|patch|build|set X.Y.Z[+N]) [--pubspec PATH]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Flutter Release Kit - changelog generator.
-Author: Chandra ObulaReddy <https://github.com/ChandraChaan>
+Author: Chandra ObulaReddy (ChandraChaan)
 
 Usage: changelog.py [--since REF] [--store] [--max N]
   default range : last tag..HEAD (whole history when no tag exists)
