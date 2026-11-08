@@ -3,7 +3,7 @@
 Author: Chandra ObulaReddy (ChandraChaan)
 
 Usage:
-  bump_version.py (major|minor|patch|build|set X.Y.Z[+N]) [--pubspec PATH]
+  bump_version.py (major|minor|patch|build|exact X.Y.Z[+N]) [--pubspec PATH]
                   [--changelog PATH] [--no-changelog] [--dry-run]
 
 Rules:
@@ -36,7 +36,7 @@ def bump(old, part):
     raise ValueError(part)
 
 
-def parse_set(value, old_build):
+def parse_exact(value, old_build):
     m = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:\+(\d+))?", value)
     if not m:
         sys.exit(f"error: '{value}' is not X.Y.Z or X.Y.Z+N")
@@ -80,8 +80,8 @@ def update_changelog(path: Path, new_semver: str, dry_run: bool) -> str:
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("part", help="major | minor | patch | build | set")
-    ap.add_argument("value", nargs="?", help="explicit version when part is 'set'")
+    ap.add_argument("part", help="major | minor | patch | build | exact")
+    ap.add_argument("value", nargs="?", help="explicit version when part is 'exact'")
     ap.add_argument("--pubspec", default="pubspec.yaml")
     ap.add_argument("--changelog", default="CHANGELOG.md")
     ap.add_argument("--no-changelog", action="store_true")
@@ -97,10 +97,10 @@ def main():
         sys.exit("error: no 'version: X.Y.Z+N' line found in pubspec.yaml")
 
     old = (int(m.group(3)), int(m.group(4)), int(m.group(5)), int(m.group(6)) if m.group(6) else None)
-    if args.part == "set":
+    if args.part == "exact":
         if not args.value:
-            sys.exit("error: 'set' needs a version, e.g. set 2.1.0+15")
-        new = parse_set(args.value, old[3])
+            sys.exit("error: 'exact' needs a version, e.g. exact 2.1.0+15")
+        new = parse_exact(args.value, old[3])
     elif args.part in ("major", "minor", "patch", "build"):
         new = bump(old, args.part)
     else:

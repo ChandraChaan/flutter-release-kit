@@ -1,7 +1,7 @@
 ---
 name: bump-version
 description: Bump the Flutter app version in pubspec.yaml (major, minor, patch or build number) and open a matching CHANGELOG section. Use when the user says "bump version", "new release version", "increase build number", "prepare 2.0", or when release-check reports the current version was already tagged.
-argument-hint: "major|minor|patch|build|set X.Y.Z+N [--dry-run]"
+argument-hint: "major|minor|patch|build|exact X.Y.Z+N [--dry-run]"
 allowed-tools: Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/bump_version.py *), Bash(git log *), Bash(git describe *), Read
 ---
 
@@ -13,7 +13,7 @@ Flutter keeps one version string in `pubspec.yaml`: `version: 1.4.2+37`. The par
 
 If the user did not say which part, look at what changed since the last tag (`git log $(git describe --tags --abbrev=0)..HEAD --oneline`):
 
-- breaking change, redesign, new major feature set → `major`
+- breaking change, redesign, large new feature group → `major`
 - new user-facing features → `minor`
 - fixes only → `patch`
 - rebuilding the same code for a store re-upload → `build`

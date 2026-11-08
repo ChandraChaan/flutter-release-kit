@@ -67,7 +67,7 @@ Requirements: Flutter on `PATH` for the analyzer and test steps, and `python3` (
 | Skill | What it does |
 |---|---|
 | `release-check` | Full preflight: analyzer, tests, version format, git tag collision, changelog entry, debug leftovers, Android signing and package name, iOS bundle id, team, privacy manifest. Verdict: READY or NOT READY with exact fixes. |
-| `bump-version` | `major` / `minor` / `patch` / `build` / `set X.Y.Z+N` on `pubspec.yaml`. Build number always increases. Opens the matching CHANGELOG section. |
+| `bump-version` | `major` / `minor` / `patch` / `build` / `exact X.Y.Z+N` on `pubspec.yaml`. Build number always increases. Opens the matching CHANGELOG section. |
 | `changelog` | Changelog section from git history grouped by conventional-commit type, or `--store` for a 500-character "What's new" block. |
 | `store-listing` | Play and App Store copy (title, subtitle, short and full description, keywords, release notes) written from your actual code, with live character counts against every limit. `--review` audits existing copy. |
 | `permission-audit` | Classifies every Android permission as restricted / sensitive / normal, including permissions bound on services (notification listener, accessibility, VPN). Finds foreground-service and storage mistakes, drafts Play Console declaration text, and lists the iOS usage-description keys your pubspec plugins need but `Info.plist` lacks. |
@@ -114,7 +114,7 @@ Then Claude reviews what a script cannot: target SDK, default icon, store assets
 ```
 /flutter-release-kit:bump-version patch
 /flutter-release-kit:bump-version minor --dry-run
-/flutter-release-kit:bump-version set 2.0.0+40
+/flutter-release-kit:bump-version exact 2.0.0+40
 /flutter-release-kit:bump-version build
 ```
 
@@ -179,7 +179,7 @@ The skills call plain scripts you can run yourself or in CI:
 
 ```bash
 scripts/preflight.sh [--skip-tests] [--skip-analyze] [--platform android|ios|all] [project_dir]   # exit 1 on FAIL
-scripts/bump_version.py (major|minor|patch|build|set X.Y.Z+N) [--dry-run] [--no-changelog]
+scripts/bump_version.py (major|minor|patch|build|exact X.Y.Z+N) [--dry-run] [--no-changelog]
 scripts/changelog.py [--since TAG] [--store] [--max N]
 scripts/permission_audit.py [project_dir] [--json]
 ```

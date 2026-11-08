@@ -182,9 +182,9 @@ if [[ "$PLATFORM" == "all" || "$PLATFORM" == "android" ]] && [[ -d android ]]; t
   fi
 
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    TRACKED_KEYS=$(git ls-files | grep -E '\.(jks|keystore|p12|pepk)$' || true)
-    if [[ -n "$TRACKED_KEYS" ]]; then
-      fail "Keystore files are tracked by git: $(echo "$TRACKED_KEYS" | tr '\n' ' ')"
+    KEYSTORE_FILES=$(git ls-files | grep -E '\.(jks|keystore|p12|pepk)$' || true)
+    if [[ -n "$KEYSTORE_FILES" ]]; then
+      fail "Keystore files are tracked by git: $(echo "$KEYSTORE_FILES" | tr '\n' ' ')"
     else
       pass "No keystore files tracked by git."
     fi

@@ -46,7 +46,7 @@ OUT=$(python3 -I "$ROOT/scripts/bump_version.py" minor --dry-run); has "$OUT" "1
 grep -q '^version: 1.2.0+5' pubspec.yaml; check "dry-run leaves pubspec untouched" $?
 python3 -I "$ROOT/scripts/bump_version.py" patch >/dev/null; grep -q '^version: 1.2.1+6' pubspec.yaml; check "patch bump written" $?
 grep -q '^## \[1.2.1\]' CHANGELOG.md && ! grep -q 'Unreleased' CHANGELOG.md; check "Unreleased renamed to 1.2.1" $?
-python3 -I "$ROOT/scripts/bump_version.py" set 2.0.0 --no-changelog >/dev/null; grep -q '^version: 2.0.0+7' pubspec.yaml; check "set keeps build increasing" $?
+python3 -I "$ROOT/scripts/bump_version.py" exact 2.0.0 --no-changelog >/dev/null; grep -q '^version: 2.0.0+7' pubspec.yaml; check "exact keeps build increasing" $?
 python3 -I "$ROOT/scripts/bump_version.py" build >/dev/null; grep -q '^version: 2.0.0+8' pubspec.yaml; check "build-only bump" $?
 
 echo "## secret guard hook"
