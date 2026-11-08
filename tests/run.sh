@@ -14,8 +14,8 @@ check() { # name, condition-exit-code
 has() { grep -qF -- "$2" <<< "$1"; }
 
 echo "## syntax"
-bash -n "$ROOT/scripts/preflight.sh" "$ROOT/scripts/changelog.sh" "$ROOT/scripts/guard_secrets.sh" "$ROOT/tests/make_fixture.sh"; check "bash -n" $?
-python3 -m py_compile "$ROOT/scripts/bump_version.py" "$ROOT/scripts/permission_audit.py"; check "py_compile" $?
+bash -n "$ROOT/scripts/preflight.sh" "$ROOT/scripts/guard_secrets.sh" "$ROOT/tests/make_fixture.sh"; check "bash -n" $?
+python3 -m py_compile "$ROOT/scripts/bump_version.py" "$ROOT/scripts/permission_audit.py" "$ROOT/scripts/changelog.py"; check "py_compile" $?
 python3 -c "import json,sys;[json.load(open(f)) for f in sys.argv[1:]]" "$ROOT/.claude-plugin/plugin.json" "$ROOT/.claude-plugin/marketplace.json" "$ROOT/hooks/hooks.json"; check "json manifests" $?
 
 echo "## preflight"
@@ -35,9 +35,9 @@ done
 python3 -I "$ROOT/scripts/permission_audit.py" . --json | python3 -c "import json,sys; d=json.load(sys.stdin); assert len(d['issues'])>=10, d['issues']"; check "audit --json has >=10 issues" $?
 
 echo "## changelog"
-OUT=$(bash "$ROOT/scripts/changelog.sh" 2>&1)
+OUT=$(python3 -I "$ROOT/scripts/changelog.py" 2>&1)
 has "$OUT" "### Added" && has "$OUT" "Export to CSV" && has "$OUT" "### Fixed" && has "$OUT" "Crash on login"; check "changelog groups feat/fix" $?
-OUT=$(bash "$ROOT/scripts/changelog.sh" --store 2>&1)
+OUT=$(python3 -I "$ROOT/scripts/changelog.py" --store 2>&1)
 has "$OUT" "• Export to CSV" && has "$OUT" "• Fixed: crash on login" && ! has "$OUT" "("; check "store notes plain, no hashes" $?
 [[ ${#OUT} -le 500 ]]; check "store notes <= 500 chars" $?
 

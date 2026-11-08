@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Flutter Release Kit - release preflight
-# Author: Chandra ObulaReddy <https://github.com/ChandraChaan>
+# Author: Chandra ObulaReddy (ChandraChaan)
 #
 # Usage: preflight.sh [--skip-tests] [--skip-analyze] [--platform android|ios|all] [project_dir]
 # Prints a PASS/WARN/FAIL report. Exit code 1 when any check FAILs.

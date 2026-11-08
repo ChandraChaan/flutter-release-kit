@@ -180,7 +180,7 @@ The skills call plain scripts you can run yourself or in CI:
 ```bash
 scripts/preflight.sh [--skip-tests] [--skip-analyze] [--platform android|ios|all] [project_dir]   # exit 1 on FAIL
 scripts/bump_version.py (major|minor|patch|build|set X.Y.Z+N) [--dry-run] [--no-changelog]
-scripts/changelog.sh [--since TAG] [--store] [--max N]
+scripts/changelog.py [--since TAG] [--store] [--max N]
 scripts/permission_audit.py [project_dir] [--json]
 ```
 
@@ -301,7 +301,7 @@ flutter-release-kit/
 │   ├── store-listing/      SKILL.md + references (field limits, ASO rules)
 │   └── permission-audit/   SKILL.md + references (Android alternatives, iOS usage strings)
 ├── hooks/hooks.json        PreToolUse guard on Bash
-├── scripts/                preflight.sh, bump_version.py, changelog.sh, permission_audit.py, guard_secrets.sh
+├── scripts/                preflight.sh, bump_version.py, changelog.py, permission_audit.py, guard_secrets.sh
 ├── tests/                  make_fixture.sh, run.sh
 └── .github/workflows/ci.yml
 ```

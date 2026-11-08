@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Flutter Release Kit - secret guard (PreToolUse hook on Bash)
-# Author: Chandra ObulaReddy <https://github.com/ChandraChaan>
+# Author: Chandra ObulaReddy (ChandraChaan)
 #
 # Blocks `git add` / `git commit -a` / `git commit` when a signing secret or
 # credentials file would be committed. Reads the hook JSON on stdin.

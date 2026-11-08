@@ -2,7 +2,7 @@
 name: changelog
 description: Generate a changelog section or store "What's new" release notes from git history for a Flutter app. Use when the user asks for release notes, "what's new text", "changelog for this version", or when bump-version left an empty section.
 argument-hint: "[--since TAG] [--store]"
-allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/changelog.sh *), Bash(git describe *), Read
+allowed-tools: Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/changelog.py *), Bash(git describe *), Read
 ---
 
 # Changelog and release notes
@@ -10,7 +10,7 @@ allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/changelog.sh *), Bash(git
 ## Generate the raw list
 
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/changelog.sh" $ARGUMENTS
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/changelog.py" $ARGUMENTS
 ```
 
 Default range is last tag to HEAD. The script groups commits by conventional-commit prefix into Added / Fixed / Performance / Changed / Docs / Internal and includes short hashes. With `--store` it prints a plain bulleted "What's new" block under 500 characters, from `feat`, `fix` and `perf` commits only, with no hashes.
