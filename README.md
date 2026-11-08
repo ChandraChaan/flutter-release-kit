@@ -1,5 +1,7 @@
 # Flutter Release Kit
 
+[![CI](https://github.com/ChandraChaan/flutter-release-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/ChandraChaan/flutter-release-kit/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) ![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-5A4FCF)
+
 **A Claude Code plugin that gets Flutter apps through Google Play and App Store review the first time.**
 
 Built by [Chandra ObulaReddy](https://github.com/ChandraChaan) after one too many "Your app has been rejected" emails.
@@ -81,6 +83,14 @@ scripts/permission_audit.py [project_dir] [--json]
 
 `preflight.sh` is a good pre-release CI gate; `permission_audit.py --json` feeds dashboards.
 
+## Tests
+
+```bash
+bash tests/run.sh
+```
+
+Generates a Flutter-shaped fixture with deliberate release mistakes in a temp folder and asserts that every script and the hook catch them. No Flutter SDK needed; CI runs it on Ubuntu and macOS.
+
 ## Layout
 
 ```
@@ -95,7 +105,8 @@ flutter-release-kit/
 │   ├── store-listing/      SKILL.md + references (field limits, ASO rules)
 │   └── permission-audit/   SKILL.md + references (Android alternatives, iOS usage strings)
 ├── hooks/hooks.json        PreToolUse guard on Bash
-└── scripts/                preflight.sh, bump_version.py, changelog.sh, permission_audit.py, guard_secrets.sh
+├── scripts/                preflight.sh, bump_version.py, changelog.sh, permission_audit.py, guard_secrets.sh
+└── tests/                  make_fixture.sh, run.sh
 ```
 
 ## Roadmap

@@ -1,7 +1,7 @@
 {
   "name": "flutter-release-kit",
   "displayName": "Flutter Release Kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ship Flutter apps without store rejections: release preflight, version bumps, changelogs, store listings, and Android/iOS permission audits.",
   "author": {
     "name": "Chandra ObulaReddy",

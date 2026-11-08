@@ -74,6 +74,24 @@ ANDROID_PERMS = {
     "android.permission.RECEIVE_BOOT_COMPLETED": ("normal", "Auto-granted; make sure boot work is minimal."),
 }
 
+# Permissions that appear on a <service android:permission=...> rather than as
+# <uses-permission>. They bind the service to a privileged system API.
+SERVICE_BOUND_PERMS = {
+    "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE": "Notification access: Play reviews this as a sensitive API. Explain the user-facing feature in the listing and the review notes; apps that read notifications for analytics or ads are removed.",
+    "android.permission.BIND_ACCESSIBILITY_SERVICE": "Accessibility API policy: declaration form required, must serve users with disabilities or an approved exception.",
+    "android.permission.BIND_DEVICE_ADMIN": "Device admin: enterprise/MDM use only; most consumer apps are rejected.",
+    "android.permission.BIND_VPN_SERVICE": "VpnService policy: declaration form, must be a real VPN or approved use (no ad-blocking by default route tricks).",
+    "android.permission.BIND_AUTOFILL_SERVICE": "Autofill service: allowed for password managers; disclose data handling.",
+    "android.permission.BIND_INPUT_METHOD": "Keyboard (IME): disclose network use; keyboards that send keystrokes off-device are heavily reviewed.",
+    "android.permission.BIND_CALL_SCREENING_SERVICE": "Call screening: eligible exception for call-log style data; describe the feature.",
+    "android.permission.BIND_SCREENING_SERVICE": "Call screening: eligible exception for call-log style data; describe the feature.",
+    "android.permission.BIND_TELECOM_CONNECTION_SERVICE": "Telecom connection service: calling apps only.",
+    "android.permission.BIND_JOB_SERVICE": None,  # normal
+    "android.permission.BIND_QUICK_SETTINGS_TILE": None,
+    "android.permission.BIND_REMOTEVIEWS": None,
+    "android.permission.BIND_WALLPAPER": None,
+}
+
 FGS_TYPES_NEEDING_DECLARATION = {
     "location", "camera", "microphone", "health", "remoteMessaging", "specialUse",
     "dataSync", "mediaProjection", "phoneCall", "connectedDevice", "mediaPlayback", "systemExempted",
@@ -126,6 +144,9 @@ JUSTIFICATION_TEMPLATES = {
     "android.permission.SCHEDULE_EXACT_ALARM": "{app} schedules exact alarms because {purpose}; inexact alarms would break the user-visible feature.",
     "android.permission.BIND_ACCESSIBILITY_SERVICE": "{app} uses the Accessibility API to {purpose} for users with {disability}. It does not read screen content for any other purpose.",
     "android.permission.USE_FULL_SCREEN_INTENT": "{app} shows full-screen intents for {purpose} (time-critical, user-expected).",
+    "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE": "{app} reads notifications only from {source_apps} to {purpose}. Notification content is processed on-device, never stored longer than {retention}, and never used for advertising or analytics. Users enable access in Settings and can revoke it at any time.",
+    "android.permission.BIND_VPN_SERVICE": "{app} provides a VPN service to {purpose}. Traffic is routed to {endpoint}; the app does not inspect or sell traffic data.",
+    "android.permission.BIND_DEVICE_ADMIN": "{app} uses device admin to {purpose} for managed devices enrolled by {organisation}.",
 }
 
 
@@ -144,10 +165,13 @@ def read_manifest(root: Path):
             perms.append({"name": name, "maxSdkVersion": max_sdk, "flags": flags})
     services = []
     for svc in m.iter("service"):
+        actions = [a.get(ANDROID_NS + "name", "") for a in svc.iter("action")]
         services.append({
             "name": svc.get(ANDROID_NS + "name", ""),
             "foregroundServiceType": svc.get(ANDROID_NS + "foregroundServiceType"),
             "exported": svc.get(ANDROID_NS + "exported"),
+            "permission": svc.get(ANDROID_NS + "permission"),
+            "actions": actions,
         })
     queries = m.find("queries")
     query_items = []
@@ -240,6 +264,16 @@ def main():
                     report["issues"].append(f"Service {s['name']} uses type '{t}' but {perm} is not declared.")
                 if t in FGS_TYPES_NEEDING_DECLARATION:
                     report["issues"].append(f"Foreground service type '{t}' needs a Play Console declaration (App content > Foreground service permissions) plus a short demo video.")
+        for s_ in manifest["services"]:
+            perm = s_.get("permission")
+            if not perm:
+                if (s_.get("exported") or "").lower() == "true":
+                    report["issues"].append(f"Service {s_['name']} is exported=true with no android:permission; any app can bind to it.")
+                continue
+            if perm in SERVICE_BOUND_PERMS and SERVICE_BOUND_PERMS[perm]:
+                rows.append({"name": perm, "maxSdkVersion": None, "flags": None, "tier": "restricted",
+                             "note": SERVICE_BOUND_PERMS[perm] + f" (bound on service {s_['name']})"})
+                report["issues"].append(f"Service {s_['name']} binds {perm.replace('android.permission.', '')}: restricted API, expect a Play policy review; see the draft declaration below.")
         if "android.permission.QUERY_ALL_PACKAGES" in names and manifest["queries"]:
             report["issues"].append("Both QUERY_ALL_PACKAGES and <queries> are present; drop QUERY_ALL_PACKAGES if <queries> covers your needs.")
         if any(n in names for n in ("android.permission.SCHEDULE_EXACT_ALARM", "android.permission.USE_EXACT_ALARM")):
@@ -250,6 +284,10 @@ def main():
         for p in manifest["permissions"]:
             if p["name"].startswith("android.permission.FOREGROUND_SERVICE_"):
                 report["android"]["justifications"][p["name"]] = JUSTIFICATION_TEMPLATES["android.permission.FOREGROUND_SERVICE"]
+        for s_ in manifest["services"]:
+            perm = s_.get("permission")
+            if perm in JUSTIFICATION_TEMPLATES:
+                report["android"]["justifications"][perm] = JUSTIFICATION_TEMPLATES[perm]
 
     if plist:
         expected = {}
@@ -289,7 +327,8 @@ def main():
         if manifest["services"]:
             print("\n### Services")
             for s in manifest["services"]:
-                print(f"- `{s['name']}` foregroundServiceType={s['foregroundServiceType'] or '-'} exported={s['exported'] or 'unset'}")
+                perm = (s.get("permission") or "-").replace("android.permission.", "")
+                print(f"- `{s['name']}` foregroundServiceType={s['foregroundServiceType'] or '-'} exported={s['exported'] or 'unset'} permission={perm}")
         if manifest["queries"]:
             print("\n### Package visibility (<queries>)")
             for q in manifest["queries"]:

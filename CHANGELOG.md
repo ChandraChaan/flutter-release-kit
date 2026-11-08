@@ -3,6 +3,14 @@
 All notable changes to Flutter Release Kit are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.1] - 2026-11-08
+
+### Added
+- `permission-audit` now classifies permissions bound on `<service android:permission=...>` (notification listener, accessibility, VPN, device admin, autofill, IME, call screening) and drafts declarations for them.
+- Exported services without a permission attribute are flagged.
+- Test suite (`tests/run.sh`) with a self-generating fixture; GitHub Actions CI on Ubuntu and macOS plus `claude plugin validate --strict`.
+- Plugin listing icon.
+
 ## [1.0.0] - 2026-11-08
 
 ### Added
