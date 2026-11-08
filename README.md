@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/ChandraChaan/flutter-release-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/ChandraChaan/flutter-release-kit/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) ![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-5A4FCF) [![Release](https://img.shields.io/github/v/release/ChandraChaan/flutter-release-kit?label=version)](https://github.com/ChandraChaan/flutter-release-kit/releases)
 
+> **Directory edition.** This branch is what the Claude directory lists. It contains the five skills and their scripts but not the secret-guard hook, which the directory accepts only from Verified organizations. Install from the GitHub marketplace (instructions below) to get the hook as well.
+
 **A Claude Code plugin that gets Flutter apps through Google Play and App Store review the first time.**
 
 Built by [Chandra ObulaReddy](https://github.com/ChandraChaan) after one too many "Your app has been rejected" emails.
