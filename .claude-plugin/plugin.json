@@ -23,5 +23,9 @@
     "changelog",
     "mobile"
   ],
-  "icon": "./.claude-plugin/icon.png"
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/ChandraChaan/flutter-release-kit#readme",
+  "supportUrl": "https://github.com/ChandraChaan/flutter-release-kit/issues",
+  "privacyPolicyUrl": "https://github.com/ChandraChaan/flutter-release-kit/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/ChandraChaan/flutter-release-kit/blob/main/LICENSE"
 }
