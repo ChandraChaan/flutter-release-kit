@@ -1,0 +1,15 @@
+{
+  "name": "flutter-release-kit",
+  "displayName": "Flutter Release Kit",
+  "version": "1.0.0",
+  "description": "Ship Flutter apps without store rejections: release preflight, version bumps, changelogs, store listings, and Android/iOS permission audits.",
+  "author": {
+    "name": "Chandra ObulaReddy",
+    "email": "dchandrachaan@gmail.com",
+    "url": "https://github.com/ChandraChaan"
+  },
+  "homepage": "https://github.com/ChandraChaan/flutter-release-kit",
+  "repository": "https://github.com/ChandraChaan/flutter-release-kit",
+  "license": "MIT",
+  "keywords": ["flutter", "dart", "release", "play-store", "app-store", "android", "ios", "permissions", "changelog", "mobile"]
+}

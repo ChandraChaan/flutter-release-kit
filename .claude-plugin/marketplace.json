@@ -1,0 +1,18 @@
+{
+  "name": "chandrachaan-plugins",
+  "description": "Claude Code plugins by Chandra ObulaReddy for Flutter and mobile development.",
+  "owner": {
+    "name": "Chandra ObulaReddy",
+    "email": "dchandrachaan@gmail.com",
+    "url": "https://github.com/ChandraChaan"
+  },
+  "plugins": [
+    {
+      "name": "flutter-release-kit",
+      "source": "./",
+      "description": "Ship Flutter apps without store rejections: release preflight, version bumps, changelogs, store listings, and Android/iOS permission audits.",
+      "category": "mobile",
+      "tags": ["flutter", "dart", "android", "ios", "play-store", "app-store", "release"]
+    }
+  ]
+}
