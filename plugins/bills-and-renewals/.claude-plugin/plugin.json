@@ -1,0 +1,15 @@
+{
+  "name": "bills-and-renewals",
+  "displayName": "Bills and Renewals",
+  "version": "0.1.0",
+  "description": "Never miss a due date: privately track bills, subscriptions, insurance and document expiry, see totals, and export calendar reminders.",
+  "author": {
+    "name": "Chandra ObulaReddy",
+    "email": "dchandrachaan@gmail.com",
+    "url": "https://github.com/ChandraChaan"
+  },
+  "homepage": "https://github.com/ChandraChaan/flutter-release-kit/tree/main/plugins/bills-and-renewals",
+  "repository": "https://github.com/ChandraChaan/flutter-release-kit",
+  "license": "MIT",
+  "keywords": ["bills", "subscriptions", "renewals", "reminders", "personal-finance", "productivity"]
+}

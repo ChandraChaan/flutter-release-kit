@@ -1,6 +1,6 @@
 {
   "name": "chandrachaan-plugins",
-  "description": "Claude Code plugins by Chandra ObulaReddy for Flutter and mobile development.",
+  "description": "Claude Code plugins by Chandra ObulaReddy for Flutter development and everyday life.",
   "owner": {
     "name": "Chandra ObulaReddy",
     "email": "dchandrachaan@gmail.com",
@@ -13,6 +13,13 @@
       "description": "Ship Flutter apps without store rejections: release preflight, version bumps, changelogs, store listings, and Android/iOS permission audits.",
       "category": "mobile",
       "tags": ["flutter", "dart", "android", "ios", "play-store", "app-store", "release"]
+    },
+    {
+      "name": "bills-and-renewals",
+      "source": "./plugins/bills-and-renewals",
+      "description": "Never miss a due date: privately track bills, subscriptions, insurance and document expiry, see totals, and export calendar reminders.",
+      "category": "productivity",
+      "tags": ["bills", "subscriptions", "renewals", "reminders", "productivity"]
     }
   ]
 }
