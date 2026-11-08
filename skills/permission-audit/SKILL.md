@@ -2,7 +2,7 @@
 name: permission-audit
 description: Audit Android manifest permissions and iOS Info.plist usage descriptions in a Flutter project, flag what Google Play and App Store will reject, and draft the Play Console declaration text. Use when the user asks about permissions, "will Play reject my SMS permission", foreground services, background location, usage descriptions, privacy manifest, or gets a permissions policy email.
 argument-hint: "[project_dir] [--json]"
-allowed-tools: Bash(python3 *), Read, Grep, Glob, Edit
+allowed-tools: Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/permission_audit.py *), Read, Grep, Glob
 ---
 
 # Permission audit

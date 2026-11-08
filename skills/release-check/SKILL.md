@@ -2,7 +2,7 @@
 name: release-check
 description: Run a release preflight on a Flutter project before building for Google Play or the App Store. Use when the user asks "is my app ready to release", "check before I publish", "release checklist", "why was my app rejected", or before running flutter build appbundle / ipa.
 argument-hint: "[--skip-tests] [--platform android|ios|all]"
-allowed-tools: Bash(bash *), Bash(flutter *), Bash(git *), Read, Grep, Glob
+allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/preflight.sh *), Read, Grep, Glob
 ---
 
 # Release check

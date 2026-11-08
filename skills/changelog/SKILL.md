@@ -2,7 +2,7 @@
 name: changelog
 description: Generate a changelog section or store "What's new" release notes from git history for a Flutter app. Use when the user asks for release notes, "what's new text", "changelog for this version", or when bump-version left an empty section.
 argument-hint: "[--since TAG] [--store]"
-allowed-tools: Bash(bash *), Bash(git *), Read, Edit
+allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/changelog.sh *), Bash(git describe *), Read
 ---
 
 # Changelog and release notes

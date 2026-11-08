@@ -1,0 +1,43 @@
+name: Sync directory branch
+
+# Anthropic's plugin directory accepts command hooks only from Verified
+# organizations. This job publishes a copy of main without the secret-guard
+# hook (and without tests/CI files) to the `directory` branch, which the
+# directory listing tracks. Claude Code users installing from the marketplace
+# on main still get the hook.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build hook-free tree
+        run: |
+          set -euo pipefail
+          SRC_SHA=$(git rev-parse --short HEAD)
+          git rm -rq hooks scripts/guard_secrets.sh tests .github
+          # Note in the README that this branch has no hook.
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("README.md"); s = p.read_text()
+          note = ("> **Directory edition.** This branch is what the Claude directory lists. "
+                  "It contains the five skills and their scripts but not the secret-guard hook, "
+                  "which the directory accepts only from Verified organizations. "
+                  "Install from the GitHub marketplace (instructions below) to get the hook as well.\n\n")
+          marker = "**A Claude Code plugin"
+          p.write_text(s.replace(marker, note + marker, 1))
+          PY
+          git add README.md
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "chore: directory edition of main@${SRC_SHA}"
+          git push -f origin HEAD:refs/heads/directory
